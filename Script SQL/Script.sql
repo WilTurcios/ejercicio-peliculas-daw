@@ -13,10 +13,19 @@ CREATE TABLE movies (
     image varchar(255)
 );
 
-create table categories(
+  create table categories(
 	id INT auto_increment primary key,
 	category_name varchar(100) not null
 );
+
+create table users (
+	id INT auto_increment primary key,
+	user_name varchar(50) not null,
+	password varchar(100) not null,
+	email varchar(255) not null,
+	isAdmin tinyint(1)default 0
+)
+
 
 select * from movies m ;
 delete from movies m;

@@ -16,6 +16,7 @@ class Movie
   private $connection;
 
   public function __construct(
+    ?int $id = null,
     ?string $title = null,
     ?string $original_title = null,
     ?int $year = null,
@@ -25,6 +26,7 @@ class Movie
     ?array $writers = null,
     ?string $image = null
   ) {
+    $this->id = $id;
     $this->title = $title;
     $this->original_title = $original_title;
     $this->year = $year;
@@ -84,17 +86,22 @@ class Movie
   {
     $query = "DELETE FROM movies WHERE id = $this->id;";
     $result = $this->connection->query($query);
+    $deleted_movie = new self(
+      $this->id,
+      $this->title,
+      $this->original_title,
+      $this->year,
+      $this->duration,
+      $this->synopsis,
+      $this->director,
+      $this->writers,
+      $this->image,
+    );
 
     $response = [
       "ok" => $result,
       "data" => [
-        "title" => $this->title,
-        "original_title" => $this->original_title,
-        "year" => $this->year,
-        "duration" => $this->duration,
-        "synopsis" => $this->synopsis,
-        "director" => $this->director,
-        "writers" => $this->writers,
+        $deleted_movie
       ]
     ];
 
@@ -115,19 +122,23 @@ class Movie
       WHERE id = $this->id
     ;";
     $result = $this->connection->query($query);
+
+    $updated_movie = new self(
+      $this->id,
+      $this->title,
+      $this->original_title,
+      $this->year,
+      $this->duration,
+      $this->synopsis,
+      $this->director,
+      $this->writers,
+      $this->image,
+    );
+
     $response = [
       "ok" => $result,
       "data" => [
-        [
-          "title" => $this->title,
-          "original_title" => $this->original_title,
-          "year" => $this->year,
-          "duration" => $this->duration,
-          "synopsis" => $this->synopsis,
-          "director" => $this->director,
-          "writers" => $this->writers,
-          "image" => $this->image,
-        ]
+        $updated_movie
       ]
     ];
 
@@ -147,7 +158,7 @@ class Movie
     if ($result && $result->num_rows > 0) {
       $response["ok"] = true;
       while ($row = $result->fetch_assoc()) {
-        $writers_array = explode(", ", $row["writers"]);
+        $writers_array = implode(", ", $row["writers"]);
 
         $movie = new self(
           $row["title"],
@@ -186,7 +197,7 @@ class Movie
     if ($result && $result->num_rows > 0) {
       $response["ok"] = true;
       while ($row = $result->fetch_assoc()) {
-        $writers_array = implode(", ", $row["writers"]);
+        $writers_array = explode(", ", $row["writers"]);
 
         $movie = new self(
           $row["id"],
