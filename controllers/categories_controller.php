@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-require_once "C:\\xampp\htdocs\MVC\models\category.php";
+require_once "models/category.php";
 
 use Models\Category;
 

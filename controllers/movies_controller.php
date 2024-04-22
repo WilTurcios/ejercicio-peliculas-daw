@@ -2,7 +2,8 @@
 
 namespace Controllers;
 
-require_once 'C:\xampp\htdocs\MVC\models\movies.php';
+// require_once 'C:\xampp\htdocs\MVC\models\movies.php';
+require_once "models/movies.php";
 
 use Models\Movie;
 
@@ -41,6 +42,7 @@ class movies_controller
     }
 
     $new_movie = new Movie(
+      null,
       $title,
       $original_title,
       $year,

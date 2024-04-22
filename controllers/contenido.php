@@ -6,12 +6,15 @@ class cls_contenido
     "addcategories" => "vistas/admin/categories/addcategories.php",
     "addmovies" => "vistas/admin/movies/addmovies.php",
     "addusers" => "vistas/admin/users/addusers.php",
+    "login" => "vistas/login/login.php",
+    "inicio" => "vistas/inicio.php"
   ];
   public function mostrar_archivo()
   {
     $pagina = "";
     $url = isset($_GET["url"]) ? $_GET["url"] : null;
     $url = explode('/', $url);
+    if (!isset($_SESSION["user"])) return $this->pages["login"];
     if ($url[0] == null) {
       $pagina = "vistas/inicio.php";
     } else {

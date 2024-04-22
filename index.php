@@ -1,4 +1,6 @@
 <?php
+session_start();
+// session_destroy();
 require_once("./controllers/contenido.php");
 require_once("./controllers/movies_controller.php");
 //index principal

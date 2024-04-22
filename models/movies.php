@@ -158,9 +158,10 @@ class Movie
     if ($result && $result->num_rows > 0) {
       $response["ok"] = true;
       while ($row = $result->fetch_assoc()) {
-        $writers_array = implode(", ", $row["writers"]);
+        $writers_array = explode(", ", $row["writers"]);
 
         $movie = new self(
+          $row["id"],
           $row["title"],
           $row["original_title"],
           $row["year"],

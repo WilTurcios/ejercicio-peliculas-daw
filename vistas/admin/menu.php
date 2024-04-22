@@ -18,6 +18,7 @@
           <div class="dropdown-menu" aria-labelledby="dropdownId">
             <a class="dropdown-item" href="addcategories">Categorías</a>
             <a class="dropdown-item" href="addmovies">Películas</a>
+            <a class="dropdown-item" href="addusers">Usuarios</a>
           </div>
         </li>
       </ul>
